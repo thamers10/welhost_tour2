@@ -1,15 +1,21 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView  # ← لإظهار صفحة HTML ثابتة
+from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # صفحة رئيسية من قالب HTML
+    # الصفحة الرئيسية
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
 
-    # توجيه التطبيقات الثلاثة
+    # مسارات التطبيقات
     path('api/accounts/', include('accounts.urls')),
     path('api/bookings/', include('bookings.urls')),
     path('api/services/', include('services.urls')),
 ]
+
+# دعم ملفات الوسائط أثناء التطوير (الصور وغيرها)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
