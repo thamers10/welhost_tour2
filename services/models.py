@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import User
 
+
 class ServiceProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
@@ -10,7 +11,18 @@ class ServiceProfile(models.Model):
     available = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.user.username}'s Service"
+        return f"{self.user.username}'s Service Profile"
+
+
+class ServiceItem(models.Model):
+    profile = models.ForeignKey(ServiceProfile, on_delete=models.CASCADE, related_name='services')
+    name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='service_images/')
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.name} - {self.profile.user.username}"
+
 
 class Review(models.Model):
     service = models.ForeignKey(ServiceProfile, on_delete=models.CASCADE, related_name='reviews')
