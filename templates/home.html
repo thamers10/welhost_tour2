@@ -1,32 +1,144 @@
-<!-- templates/home.html -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الصفحة الرئيسية | ويلهوست تور</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            line-height: 1.6;
             direction: rtl;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         main {
-            padding: 2rem;
+            flex: 1;
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
-        h2 {
-            color: #343a40;
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent-color);
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--accent-color);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
             margin-bottom: 1rem;
         }
 
-        p {
-            color: #6c757d;
-            font-size: 1.1rem;
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
@@ -34,14 +146,38 @@
 
     {% include "header.html" %}
 
-
     <main>
-        <h2>رحلتك تبدأ من هنا</h2>
-        <p>منصة ويلهوست تور تقدم لك أفضل التجارب السياحية في المملكة العربية السعودية، عبر ربطك بأفضل المرشدين والسائقين.</p>
+        <section class="hero">
+            <h2>رحلتك تبدأ من هنا</h2>
+            <p>
+                منصة ويلهوست تور تقدم لك أفضل التجارب السياحية في المملكة العربية السعودية،
+                عبر ربطك بأفضل المرشدين والسائقين المحترفين لاكتشاف كنوز المملكة.
+            </p>
+            <a href="#" class="cta-button">ابدأ رحلتك الآن</a>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🗺️</div>
+                <h3>جولات سياحية مميزة</h3>
+                <p>اكتشف المملكة مع أفضل المرشدين السياحيين المعتمدين وخبراء المنطقة</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🚗</div>
+                <h3>خدمات نقل مريحة</h3>
+                <p>وسائل نقل مكيفة مع سائقين محترفين يعرفون جميع الطرق والوجهات</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3>تجارب فريدة</h3>
+                <p>جولات مخصصة تناسب اهتماماتك وتطلعاتك لاكتشاف المملكة بطريقة مختلفة</p>
+            </div>
+        </section>
     </main>
 
     {% include "footer.html" %}
-
 
 </body>
 </html>
