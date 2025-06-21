@@ -65,7 +65,6 @@
             margin: 0 auto 2rem;
         }
 
-        /* --- صورة الهيرو --- */
         .hero-image {
             max-width: 400px;
             width: 100%;
@@ -111,12 +110,6 @@
 
         .feature-card:hover {
             transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
         }
 
         .feature-card h3 {
@@ -175,25 +168,8 @@
             </div>
         </section>
 
-        <section class="features">
-            <div class="feature-card">
-                <div class="feature-icon">🗺️</div>
-                <h3>جولات سياحية مميزة</h3>
-                <p>اكتشف المملكة مع أفضل المرشدين السياحيين المعتمدين وخبراء المنطقة</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">🚗</div>
-                <h3>خدمات نقل مريحة</h3>
-                <p>وسائل نقل مكيفة مع سائقين محترفين يعرفون جميع الطرق والوجهات</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">⭐</div>
-                <h3>تجارب فريدة</h3>
-                <p>جولات مخصصة تناسب اهتماماتك وتطلعاتك لاكتشاف المملكة بطريقة مختلفة</p>
-            </div>
-        </section>
+        <!-- ✅ عرض الخدمات الحقيقية -->
+        {% include "services/all_services.html" %}
     </main>
 
     {% include "footer.html" %}

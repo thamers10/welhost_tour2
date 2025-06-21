@@ -1,0 +1,21 @@
+<!-- لا يوجد extends أو block هنا -->
+<h2 style="text-align:center; color:#2c3e50; font-size: 2rem; margin: 3rem 0 2rem;">
+    جميع الخدمات المتوفرة
+</h2>
+
+<section class="features">
+    {% for service in services %}
+        <div class="feature-card">
+            <img src="{{ service.image.url }}" alt="{{ service.name }}"
+                 style="width: 100%; border-radius: 10px; margin-bottom: 1rem;">
+
+            <h3>{{ service.name }}</h3>
+            <p><strong>السعر:</strong> {{ service.price }} ريال</p>
+            <p style="font-size: 0.9rem; color: #7f8c8d;">
+                مقدم الخدمة: {{ service.profile.user.username }}
+            </p>
+        </div>
+    {% empty %}
+        <p style="text-align:center;">لا توجد خدمات حاليًا.</p>
+    {% endfor %}
+</section>
