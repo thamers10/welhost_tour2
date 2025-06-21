@@ -94,68 +94,27 @@
                 transition: width 0.3s;
             "></span>
         </a>
-        
-        <a href="#" style="
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: 500;
-            padding: 0.5rem 0;
-            position: relative;
-            transition: color 0.3s;
-        " onmouseover="this.style.color='#e74c3c'; this.querySelector('span').style.width='100%'" 
-           onmouseout="this.style.color='#2c3e50'; this.querySelector('span').style.width='0'">
-            المرشدين
-            <span style="
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                width: 0;
-                height: 2px;
-                background-color: #e74c3c;
-                transition: width 0.3s;
-            "></span>
-        </a>
-        
-        <a href="#" style="
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: 500;
-            padding: 0.5rem 0;
-            position: relative;
-            transition: color 0.3s;
-        " onmouseover="this.style.color='#e74c3c'; this.querySelector('span').style.width='100%'" 
-           onmouseout="this.style.color='#2c3e50'; this.querySelector('span').style.width='0'">
-            السائقين
-            <span style="
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                width: 0;
-                height: 2px;
-                background-color: #e74c3c;
-                transition: width 0.3s;
-            "></span>
-        </a>
-        
-        <a href="#" style="
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: 500;
-            padding: 0.5rem 0;
-            position: relative;
-            transition: color 0.3s;
-        " onmouseover="this.style.color='#e74c3c'; this.querySelector('span').style.width='100%'" 
-           onmouseout="this.style.color='#2c3e50'; this.querySelector('span').style.width='0'">
-            تواصل معنا
-            <span style="
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                width: 0;
-                height: 2px;
-                background-color: #e74c3c;
-                transition: width 0.3s;
-            "></span>
-        </a>
+
+        <a href="#" style="text-decoration: none; color: #2c3e50; font-weight: 500;">المرشدين</a>
+        <a href="#" style="text-decoration: none; color: #2c3e50; font-weight: 500;">السائقين</a>
+        <a href="#" style="text-decoration: none; color: #2c3e50; font-weight: 500;">تواصل معنا</a>
     </div>
 </nav>
+
+<!-- ✅ عرض رسالة ترحيب باسم المستخدم من الجلسة -->
+{% if request.user.is_authenticated %}
+    <div style="
+        background-color: #dff0d8;
+        color: #3c763d;
+        padding: 1rem 2rem;
+        text-align: center;
+        font-weight: 500;
+        border-radius: 8px;
+        margin: 1rem auto;
+        max-width: 900px;
+        font-family: 'Tajawal', sans-serif;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    ">
+        👋 مرحبًا بك يا {{ request.user.first_name|default:request.user.username }}! نتمنى لك تجربة ممتعة 🎉
+    </div>
+{% endif %}
