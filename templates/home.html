@@ -75,6 +75,7 @@
             font-weight: 500;
             transition: all 0.3s ease;
             border: 2px solid var(--accent-color);
+            margin: 0.3rem;
         }
 
         .cta-button:hover {
@@ -154,6 +155,10 @@
                 عبر ربطك بأفضل المرشدين والسائقين المحترفين لاكتشاف كنوز المملكة.
             </p>
             <a href="#" class="cta-button">ابدأ رحلتك الآن</a>
+            <div style="margin-top: 2rem;">
+                <a href="{% url 'login' %}" class="cta-button">تسجيل الدخول</a>
+                <a href="{% url 'signup' %}" class="cta-button">تسجيل جديد</a>
+            </div>
         </section>
 
         <section class="features">

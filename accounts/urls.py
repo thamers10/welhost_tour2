@@ -1,5 +1,8 @@
 from django.urls import path
+from . import views
 
 urlpatterns = [
-    # سيتم ملؤها لاحقًا بواجهات المستخدم (تسجيل، دخول، ...الخ)
+    path('login/', views.login_view, name='login'),
+    path('signup/', views.signup_view, name='signup'),
+    path('logout/', views.logout_view, name='logout'),
 ]

@@ -10,8 +10,10 @@ urlpatterns = [
     # الصفحة الرئيسية
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
 
-    # مسارات التطبيقات
-    path('api/accounts/', include('accounts.urls')),
+    # صفحات المستخدم (تسجيل، تسجيل دخول)
+    path('accounts/', include('accounts.urls')),
+
+    # مسارات API
     path('api/bookings/', include('bookings.urls')),
     path('api/services/', include('services.urls')),
 ]
