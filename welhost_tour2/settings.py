@@ -193,8 +193,8 @@ if DEBUG:
 import cloudinary
 
 cloudinary.config(
-    cloud_name="اسم_السحابة",       # ← استبدل بالقيمة الحقيقية
-    api_key="مفتاح_API",             # ← استبدل بالقيمة الحقيقية
-    api_secret="الرمز_الخاص",        # ← استبدل بالقيمة الحقيقية
+    cloud_name="dzkbok39v",
+    api_key="996169131821142",
+    api_secret="mEktsCaxvP4oYgsjARZKM0Qxxsk",
     secure=True
 )

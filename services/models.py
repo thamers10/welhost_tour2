@@ -19,21 +19,19 @@ class ServiceItem(models.Model):
     profile = models.ForeignKey(ServiceProfile, on_delete=models.CASCADE, related_name='services')
     name = models.CharField(max_length=100)
 
-    # الصورة المحلية تُستخدم فقط أثناء الحفظ
+    # الصورة المرفوعة من الإدارة (محليًا فقط مؤقتًا)
     image = models.ImageField(upload_to='temp/', blank=True, null=True)
 
-    # سيتم حفظ رابط Cloudinary هنا بعد الرفع
+    # رابط Cloudinary بعد الرفع
     cloudinary_url = models.URLField(blank=True, null=True)
 
     price = models.DecimalField(max_digits=8, decimal_places=2)
 
     def save(self, *args, **kwargs):
-        # إذا تم رفع صورة جديدة، ارفعها إلى Cloudinary
         if self.image:
             result = cloudinary.uploader.upload(self.image)
             self.cloudinary_url = result.get("secure_url")
-            self.image = None  # حذف الصورة المحلية (اختياري)
-
+            self.image = None  # حذف الملف المحلي
         super().save(*args, **kwargs)
 
     def __str__(self):
