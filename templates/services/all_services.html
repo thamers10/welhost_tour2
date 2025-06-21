@@ -6,8 +6,15 @@
 <section class="features">
     {% for service in services %}
         <div class="feature-card">
-            <img src="{{ service.image.url }}" alt="{{ service.name }}"
-                 style="width: 100%; border-radius: 10px; margin-bottom: 1rem;">
+            {% if service.cloudinary_url %}
+                <img src="{{ service.cloudinary_url }}" alt="{{ service.name }}"
+                     style="width: 100%; border-radius: 10px; margin-bottom: 1rem;">
+            {% else %}
+                <div style="width: 100%; height: 200px; background: #ecf0f1; border-radius: 10px;
+                            display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                    <span style="color: #7f8c8d;">لا توجد صورة</span>
+                </div>
+            {% endif %}
 
             <h3>{{ service.name }}</h3>
             <p><strong>السعر:</strong> {{ service.price }} ريال</p>
