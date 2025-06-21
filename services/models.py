@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import User
+import cloudinary.uploader
 
 
 class ServiceProfile(models.Model):
@@ -17,8 +18,23 @@ class ServiceProfile(models.Model):
 class ServiceItem(models.Model):
     profile = models.ForeignKey(ServiceProfile, on_delete=models.CASCADE, related_name='services')
     name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='service_images/')
+
+    # الصورة المحلية تُستخدم فقط أثناء الحفظ
+    image = models.ImageField(upload_to='temp/', blank=True, null=True)
+
+    # سيتم حفظ رابط Cloudinary هنا بعد الرفع
+    cloudinary_url = models.URLField(blank=True, null=True)
+
     price = models.DecimalField(max_digits=8, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        # إذا تم رفع صورة جديدة، ارفعها إلى Cloudinary
+        if self.image:
+            result = cloudinary.uploader.upload(self.image)
+            self.cloudinary_url = result.get("secure_url")
+            self.image = None  # حذف الصورة المحلية (اختياري)
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.name} - {self.profile.user.username}"

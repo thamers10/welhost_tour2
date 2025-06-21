@@ -12,16 +12,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # --------------------------------------------------
 # الأمان (Security)
 # --------------------------------------------------
-# ⚠️ في بيئة الإنتاج يُفضَّل جلب المفتاح من المتغيرات البيئية
 SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
     "django-insecure-pzjqgm#d7ycb^(!frsym(y1=60owz)441&aw84)m8)gg@$n*)0"
 )
-
-# DEBUG يُفترض إيقافه في الإنتاج
 DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
-
-# النطاقات المسموح بها
 ALLOWED_HOSTS = os.environ.get(
     "DJANGO_ALLOWED_HOSTS",
     "127.0.0.1,localhost"
@@ -38,11 +33,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "sslserver",  # ← تأكد أنه موجود هنا 
+    "sslserver",
+
     # أطراف ثالثة
     "rest_framework",
-    "rest_framework_simplejwt.token_blacklist",  # JWT
-    "corsheaders",                               # CORS (اختياري)
+    "rest_framework_simplejwt.token_blacklist",
+    "corsheaders",
 
     # تطبيقات المشروع
     "accounts",
@@ -51,11 +47,11 @@ INSTALLED_APPS = [
 ]
 
 # --------------------------------------------------
-# ميدل وير
+# الميدل وير
 # --------------------------------------------------
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "corsheaders.middleware.CorsMiddleware",          # قبل SessionMiddleware
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -65,7 +61,7 @@ MIDDLEWARE = [
 ]
 
 # --------------------------------------------------
-# عناوين CORS (اختياري)
+# CORS
 # --------------------------------------------------
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
@@ -98,7 +94,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "welhost_tour2.wsgi.application"
 
 # --------------------------------------------------
-# قاعدة البيانات (SQLite للتطوير فقط)
+# قاعدة البيانات
 # --------------------------------------------------
 DATABASES = {
     "default": {
@@ -108,12 +104,12 @@ DATABASES = {
 }
 
 # --------------------------------------------------
-# نموذج المستخدم المخصص
+# نموذج المستخدم
 # --------------------------------------------------
 AUTH_USER_MODEL = "accounts.User"
 
 # --------------------------------------------------
-# التحقق من كلمات المرور
+# كلمات المرور
 # --------------------------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -123,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # --------------------------------------------------
-# إعدادات Django REST Framework
+# Django REST Framework
 # --------------------------------------------------
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -134,7 +130,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-# إعدادات JWT الأساسية
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
@@ -157,18 +152,18 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # --------------------------------------------------
-# ملفات الوسائط (للصور المرفوعة)
+# ملفات الوسائط
 # --------------------------------------------------
 MEDIA_URL = "/service_images/"
 MEDIA_ROOT = BASE_DIR / "service_images"
 
 # --------------------------------------------------
-# نوع المفتاح الافتراضي للجداول
+# النوع الافتراضي للمفاتيح
 # --------------------------------------------------
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # --------------------------------------------------
-# التسجيل (Logging) – يُسهِّل تتبُّع الأخطاء
+# التسجيل (Logging)
 # --------------------------------------------------
 LOGGING = {
     "version": 1,
@@ -191,3 +186,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 if DEBUG:
     urlpatterns = [] + static(MEDIA_URL, document_root=MEDIA_ROOT)
+
+# --------------------------------------------------
+# إعداد Cloudinary (تم إضافته كما طلبت)
+# --------------------------------------------------
+import cloudinary
+
+cloudinary.config(
+    cloud_name="اسم_السحابة",       # ← استبدل بالقيمة الحقيقية
+    api_key="مفتاح_API",             # ← استبدل بالقيمة الحقيقية
+    api_secret="الرمز_الخاص",        # ← استبدل بالقيمة الحقيقية
+    secure=True
+)
