@@ -6,7 +6,8 @@
     <title>الصفحة الرئيسية | ويلهوست تور</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -16,6 +17,8 @@
             --dark-color: #2c3e50;
             --text-color: #333;
             --text-light: #7f8c8d;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
@@ -26,9 +29,9 @@
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background-color: #f5f5f5;
+            background-color: #f9f9f9;
             color: var(--text-color);
-            line-height: 1.6;
+            line-height: 1.8;
             direction: rtl;
             min-height: 100vh;
             display: flex;
@@ -38,110 +41,267 @@
         main {
             flex: 1;
             padding: 2rem 1rem;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             width: 100%;
         }
 
         .hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
             color: white;
-            padding: 4rem 1rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 5rem 1rem;
+            border-radius: 16px;
+            margin-bottom: 3rem;
+            box-shadow: var(--box-shadow);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .hero h2 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1.5rem;
-            font-weight: 700;
+            font-weight: 900;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             max-width: 800px;
-            margin: 0 auto 2rem;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
         }
 
         .hero-image {
-            max-width: 400px;
+            max-width: 500px;
             width: 100%;
-            margin: 2rem auto 1rem;
+            margin: 3rem auto 2rem;
             display: block;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            border: 5px solid rgba(255,255,255,0.1);
+            transition: var(--transition);
+        }
+
+        .hero-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
 
         .cta-button {
             display: inline-block;
             background-color: var(--accent-color);
             color: white;
-            padding: 0.8rem 2rem;
+            padding: 1rem 2.5rem;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-weight: 700;
+            transition: var(--transition);
             border: 2px solid var(--accent-color);
-            margin: 0.3rem;
+            margin: 0.5rem;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.3));
+            transform: translateX(-100%);
+            transition: var(--transition);
         }
 
         .cta-button:hover {
             background-color: transparent;
             color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .cta-button:hover::after {
+            transform: translateX(0);
+        }
+
+        .secondary-button {
+            background-color: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        .secondary-button:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
         }
 
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin: 4rem 0;
         }
 
         .feature-card {
             background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
             text-align: center;
+            border-top: 4px solid var(--accent-color);
+            position: relative;
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            display: inline-block;
         }
 
         .feature-card h3 {
             color: var(--primary-color);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
         .feature-card p {
             color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        /* تأثيرات للصفحة */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        @media (max-width: 992px) {
+            .hero {
+                padding: 4rem 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
         }
 
         @media (max-width: 768px) {
+            .hero {
+                padding: 3.5rem 1rem;
+                border-radius: 0;
+            }
+            
             .hero h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
+            
             .features {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 576px) {
             .hero {
                 padding: 3rem 1rem;
             }
-
+            
             .hero h2 {
                 font-size: 1.8rem;
+            }
+            
+            .hero-image {
+                max-width: 100%;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+                margin: 0.3rem 0;
             }
         }
     </style>
@@ -152,21 +312,53 @@
 
     <main>
         <section class="hero">
-            <h2>رحلتك تبدأ من هنا</h2>
-            <p>
-                منصة ويلهوست تور تقدم لك أفضل التجارب السياحية في المملكة العربية السعودية،
-                عبر ربطك بأفضل المرشدين والسائقين المحترفين لاكتشاف كنوز المملكة.
-            </p>
+            <div class="hero-content">
+                <h2 class="animate">رحلتك تبدأ من هنا مع ويلهوست تور</h2>
+                <p class="animate delay-1">
+                    منصة ويلهوست تور تقدم لك أفضل التجارب السياحية في المملكة العربية السعودية،
+                    عبر ربطك بأفضل المرشدين والسائقين المحترفين لاكتشاف كنوز المملكة.
+                </p>
 
-            <!-- صورة الخدمة في منتصف الصفحة -->
-            <img src="{{ image_path }}" alt="صورة الخدمة" class="hero-image" loading="lazy">
+                <!-- صورة الخدمة في منتصف الصفحة -->
+                <img src="{{ image_path }}" alt="صورة الخدمة" class="hero-image animate delay-2" loading="lazy">
 
-            <a href="#" class="cta-button">ابدأ رحلتك الآن</a>
-            <div style="margin-top: 2rem;">
-                <a href="{% url 'login' %}" class="cta-button">تسجيل الدخول</a>
-                <a href="{% url 'signup' %}" class="cta-button">تسجيل جديد</a>
+                <div class="button-group animate delay-3">
+                    <a href="#" class="cta-button">ابدأ رحلتك الآن</a>
+                    <a href="{% url 'login' %}" class="cta-button secondary-button">تسجيل الدخول</a>
+                    <a href="{% url 'signup' %}" class="cta-button secondary-button">تسجيل جديد</a>
+                </div>
             </div>
         </section>
+
+        <div class="section-title animate">
+            <h2>لماذا تختار ويلهوست تور؟</h2>
+        </div>
+
+        <div class="features">
+            <div class="feature-card animate delay-1">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3>وجهات متنوعة</h3>
+                <p>اكتشف أجمل الوجهات السياحية في المملكة مع مرشدين محليين يعرفون كل التفاصيل</p>
+            </div>
+            
+            <div class="feature-card animate delay-2">
+                <div class="feature-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3>تجارب شخصية</h3>
+                <p>نصمم لك رحلات تناسب اهتماماتك وميزانيتك لتجربة فريدة لا تنسى</p>
+            </div>
+            
+            <div class="feature-card animate delay-3">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>حجز آمن</h3>
+                <p>نضمن لك حجوزات آمنة ومراجعات حقيقية من المسافرين لتختار الأفضل</p>
+            </div>
+        </div>
 
         <!-- ✅ عرض الخدمات الحقيقية -->
         {% include "services/all_services.html" %}
@@ -174,5 +366,27 @@
 
     {% include "footer.html" %}
 
+    <script>
+        // إضافة تأثيرات التمرير
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
 </body>
 </html>
