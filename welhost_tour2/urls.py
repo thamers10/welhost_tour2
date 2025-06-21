@@ -1,14 +1,14 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
+from services import views as service_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     # الصفحة الرئيسية
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', service_views.home, name='home'),
 
     # صفحات المستخدم (تسجيل، تسجيل دخول)
     path('accounts/', include('accounts.urls')),

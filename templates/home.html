@@ -65,6 +65,16 @@
             margin: 0 auto 2rem;
         }
 
+        /* --- صورة الهيرو --- */
+        .hero-image {
+            max-width: 400px;
+            width: 100%;
+            margin: 2rem auto 1rem;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
         .cta-button {
             display: inline-block;
             background-color: var(--accent-color);
@@ -122,11 +132,11 @@
             .hero h2 {
                 font-size: 2rem;
             }
-            
+
             .hero p {
                 font-size: 1rem;
             }
-            
+
             .features {
                 grid-template-columns: 1fr;
             }
@@ -136,7 +146,7 @@
             .hero {
                 padding: 3rem 1rem;
             }
-            
+
             .hero h2 {
                 font-size: 1.8rem;
             }
@@ -154,6 +164,10 @@
                 منصة ويلهوست تور تقدم لك أفضل التجارب السياحية في المملكة العربية السعودية،
                 عبر ربطك بأفضل المرشدين والسائقين المحترفين لاكتشاف كنوز المملكة.
             </p>
+
+            <!-- صورة الخدمة في منتصف الصفحة -->
+            <img src="{{ image_path }}" alt="صورة الخدمة" class="hero-image" loading="lazy">
+
             <a href="#" class="cta-button">ابدأ رحلتك الآن</a>
             <div style="margin-top: 2rem;">
                 <a href="{% url 'login' %}" class="cta-button">تسجيل الدخول</a>
@@ -167,13 +181,13 @@
                 <h3>جولات سياحية مميزة</h3>
                 <p>اكتشف المملكة مع أفضل المرشدين السياحيين المعتمدين وخبراء المنطقة</p>
             </div>
-            
+
             <div class="feature-card">
                 <div class="feature-icon">🚗</div>
                 <h3>خدمات نقل مريحة</h3>
                 <p>وسائل نقل مكيفة مع سائقين محترفين يعرفون جميع الطرق والوجهات</p>
             </div>
-            
+
             <div class="feature-card">
                 <div class="feature-icon">⭐</div>
                 <h3>تجارب فريدة</h3>

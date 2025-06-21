@@ -1,6 +1,6 @@
 """
 Django settings for welhost_tour2 project.
-آخر تحديث: 19 يونيو 2025
+آخر تحديث: 21 يونيو 2025
 """
 from pathlib import Path
 import os
@@ -159,8 +159,8 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 # --------------------------------------------------
 # ملفات الوسائط (للصور المرفوعة)
 # --------------------------------------------------
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "/service_images/"
+MEDIA_ROOT = BASE_DIR / "service_images"
 
 # --------------------------------------------------
 # نوع المفتاح الافتراضي للجداول
@@ -183,3 +183,11 @@ LOGGING = {
         "level": "INFO",
     },
 }
+
+# --------------------------------------------------
+# تفعيل الوسائط أثناء التطوير
+# --------------------------------------------------
+from django.conf import settings
+from django.conf.urls.static import static
+if DEBUG:
+    urlpatterns = [] + static(MEDIA_URL, document_root=MEDIA_ROOT)
