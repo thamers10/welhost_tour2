@@ -1,26 +1,27 @@
 """
 Django settings for welhost_tour2 project.
-آخر تحديث: 21 يونيو 2025
+آخر تحديث: 22 يونيو 2025
 """
 from pathlib import Path
-import os
 from datetime import timedelta
+import os
+import dj_database_url
+from decouple import config, Csv
 
+# --------------------------------------------------
 # المسار الأساسي للمشروع
+# --------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # --------------------------------------------------
 # الأمان (Security)
 # --------------------------------------------------
-SECRET_KEY = os.environ.get(
+SECRET_KEY = config(
     "DJANGO_SECRET_KEY",
-    "django-insecure-pzjqgm#d7ycb^(!frsym(y1=60owz)441&aw84)m8)gg@$n*)0"
+    default="django-insecure-pzjqgm#d7ycb^(!frsym(y1=60owz)441&aw84)m8)gg@$n*)0"
 )
-DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
-ALLOWED_HOSTS = os.environ.get(
-    "DJANGO_ALLOWED_HOSTS",
-    "127.0.0.1,localhost"
-).split(",")
+DEBUG = config("DJANGO_DEBUG", default="True") == "True"
+ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default="127.0.0.1,localhost").split(",")
 
 # --------------------------------------------------
 # التطبيقات المثبَّتة
@@ -96,12 +97,17 @@ WSGI_APPLICATION = "welhost_tour2.wsgi.application"
 # --------------------------------------------------
 # قاعدة البيانات
 # --------------------------------------------------
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": dj_database_url.parse(config("DATABASE_URL"))
+    }
 
 # --------------------------------------------------
 # نموذج المستخدم
@@ -188,13 +194,13 @@ if DEBUG:
     urlpatterns = [] + static(MEDIA_URL, document_root=MEDIA_ROOT)
 
 # --------------------------------------------------
-# إعداد Cloudinary (تم إضافته كما طلبت)
+# إعداد Cloudinary
 # --------------------------------------------------
 import cloudinary
 
 cloudinary.config(
-    cloud_name="dzkbok39v",
-    api_key="996169131821142",
-    api_secret="mEktsCaxvP4oYgsjARZKM0Qxxsk",
+    cloud_name=config("CLOUDINARY_CLOUD_NAME", default="dzkbok39v"),
+    api_key=config("CLOUDINARY_API_KEY", default="996169131821142"),
+    api_secret=config("CLOUDINARY_API_SECRET", default="mEktsCaxvP4oYgsjARZKM0Qxxsk"),
     secure=True
 )
