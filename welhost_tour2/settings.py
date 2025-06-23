@@ -3,6 +3,7 @@ from datetime import timedelta
 import os
 import dj_database_url
 from decouple import config
+import cloudinary
 
 # --------------------------------------------------
 # المسار الأساسي للمشروع
@@ -148,7 +149,7 @@ USE_TZ = True
 # --------------------------------------------------
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+# ❌ تم حذف STATICFILES_DIRS لأنه غير ضروري
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # --------------------------------------------------
@@ -182,11 +183,18 @@ LOGGING = {
 # --------------------------------------------------
 # إعداد Cloudinary
 # --------------------------------------------------
-import cloudinary
-
 cloudinary.config(
     cloud_name=config("CLOUDINARY_CLOUD_NAME", default="dzkbok39v"),
     api_key=config("CLOUDINARY_API_KEY", default="996169131821142"),
     api_secret=config("CLOUDINARY_API_SECRET", default="mEktsCaxvP4oYgsjARZKM0Qxxsk"),
     secure=True
 )
+
+# --------------------------------------------------
+# دعم ملفات static/media في التطوير
+# --------------------------------------------------
+if DEBUG:
+    from django.conf.urls.static import static
+    from django.urls import static as static_urls
+    urlpatterns = static(STATIC_URL, document_root=STATIC_ROOT)
+    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
