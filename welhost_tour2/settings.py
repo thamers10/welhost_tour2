@@ -1,12 +1,8 @@
-"""
-Django settings for welhost_tour2 project.
-آخر تحديث: 22 يونيو 2025
-"""
 from pathlib import Path
 from datetime import timedelta
 import os
 import dj_database_url
-from decouple import config, Csv
+from decouple import config
 
 # --------------------------------------------------
 # المسار الأساسي للمشروع
@@ -27,7 +23,6 @@ ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default="127.0.0.1,localhost").sp
 # التطبيقات المثبَّتة
 # --------------------------------------------------
 INSTALLED_APPS = [
-    # Django
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -35,13 +30,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "sslserver",
-
-    # أطراف ثالثة
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
-
-    # تطبيقات المشروع
     "accounts",
     "bookings",
     "services",
@@ -52,6 +43,7 @@ INSTALLED_APPS = [
 # --------------------------------------------------
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # ← ميدل وير Whitenoise
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -105,9 +97,7 @@ if DEBUG:
         }
     }
 else:
-    # طباعة لتأكيد قراءة المتغير من .env
     print("🟡 DATABASE_URL =", config("DATABASE_URL"))
-
     DATABASES = {
         "default": dj_database_url.parse(config("DATABASE_URL"))
     }
@@ -159,6 +149,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # --------------------------------------------------
 # ملفات الوسائط
@@ -187,14 +178,6 @@ LOGGING = {
         "level": "INFO",
     },
 }
-
-# --------------------------------------------------
-# تفعيل الوسائط أثناء التطوير
-# --------------------------------------------------
-from django.conf import settings
-from django.conf.urls.static import static
-if DEBUG:
-    urlpatterns = [] + static(MEDIA_URL, document_root=MEDIA_ROOT)
 
 # --------------------------------------------------
 # إعداد Cloudinary

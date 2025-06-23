@@ -2,22 +2,27 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+
+# استيراد العرض الرئيسي من تطبيق الخدمات
 from services import views as service_views
 
 urlpatterns = [
+    # لوحة التحكم
     path('admin/', admin.site.urls),
 
-    # الصفحة الرئيسية
+    # الصفحة الرئيسية (تُعرض من تطبيق services)
     path('', service_views.home, name='home'),
 
-    # صفحات المستخدم (تسجيل، تسجيل دخول)
+    # الحسابات (تسجيل، تسجيل دخول، إلخ)
     path('accounts/', include('accounts.urls')),
 
-    # مسارات API
+    # API للحجوزات
     path('api/bookings/', include('bookings.urls')),
+
+    # API للخدمات
     path('api/services/', include('services.urls')),
 ]
 
-# دعم ملفات الوسائط أثناء التطوير (الصور وغيرها)
+# دعم ملفات الوسائط في وضع التطوير
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
