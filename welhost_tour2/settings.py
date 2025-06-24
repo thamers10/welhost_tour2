@@ -30,10 +30,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    # الطرف الثالث
     "sslserver",
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
+
+    # التطبيقات الخاصة
     "accounts",
     "bookings",
     "services",
@@ -44,7 +48,7 @@ INSTALLED_APPS = [
 # --------------------------------------------------
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # ← ميدل وير Whitenoise
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -77,6 +81,7 @@ TEMPLATES = [
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
+                "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
@@ -98,7 +103,6 @@ if DEBUG:
         }
     }
 else:
-    print("🟡 DATABASE_URL =", config("DATABASE_URL"))
     DATABASES = {
         "default": dj_database_url.parse(config("DATABASE_URL"))
     }
@@ -149,14 +153,14 @@ USE_TZ = True
 # --------------------------------------------------
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-# ❌ تم حذف STATICFILES_DIRS لأنه غير ضروري
+STATICFILES_DIRS = [BASE_DIR / "static"]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # --------------------------------------------------
 # ملفات الوسائط
 # --------------------------------------------------
-MEDIA_URL = "/service_images/"
-MEDIA_ROOT = BASE_DIR / "service_images"
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # --------------------------------------------------
 # النوع الافتراضي للمفاتيح
@@ -191,10 +195,11 @@ cloudinary.config(
 )
 
 # --------------------------------------------------
-# دعم ملفات static/media في التطوير
+# دعم static/media في التطوير فقط
 # --------------------------------------------------
 if DEBUG:
+    from django.conf import settings
     from django.conf.urls.static import static
-    from django.urls import static as static_urls
-    urlpatterns = static(STATIC_URL, document_root=STATIC_ROOT)
-    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
+
+    urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<main style="max-width: 1000px; margin: 2rem auto;">
+    <h2 style="text-align:center;">قائمة السائقين</h2>
+
+    <!-- فلتر المدينة -->
+    <form method="get" style="text-align: center; margin-bottom: 2rem;">
+        <label>اختر المدينة:</label>
+        <select name="city" onchange="this.form.submit()">
+            <option value="">الكل</option>
+            {% for city_option in cities %}
+                <option value="{{ city_option }}" {% if city_option == selected_city %}selected{% endif %}>
+                    {{ city_option }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <!-- قائمة السائقين-->
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+        {% for guide in guides %}
+        <div style="background: #fff; padding: 1rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center;">
+            {% if guide.profile_picture %}
+                <img src="{{ driver.profile_picture.url }}" alt="الصورة" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
+            {% else %}
+                <div style="width: 100px; height: 100px; border-radius: 50%; background: #ccc; margin: 0 auto 1rem;"></div>
+            {% endif %}
+            
+            <h3 style="margin: 0 0 0.5rem;">{{ driver.first_name }} {{ driver.last_name }}</h3>
+            <p style="margin: 0; color: #7f8c8d;">المدينة: {{ guide.city }}</p>
+            <p style="margin: 0.5rem 0;">📞 {{ guide.phone_number }}</p>
+
+            <!-- ⭐ التقييم -->
+            <div style="margin-top: 0.5rem;">
+                ⭐⭐⭐⭐☆ <small style="color:#999;">(4.0)</small>
+            </div>
+        </div>
+        {% empty %}
+            <p style="text-align:center;">لا يوجد سائقين في هذه المدينة.</p>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}
