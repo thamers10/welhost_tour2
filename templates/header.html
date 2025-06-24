@@ -75,7 +75,7 @@
         flex-wrap: wrap;
         gap: 1.5rem;
     ">
-        <a href="/" style="
+        <a href="{% url 'home' %}" style="
             text-decoration: none;
             color: #2c3e50;
             font-weight: 500;
@@ -95,9 +95,17 @@
             "></span>
         </a>
 
-        <a href="#" style="text-decoration: none; color: #2c3e50; font-weight: 500;">المرشدين</a>
-        <a href="#" style="text-decoration: none; color: #2c3e50; font-weight: 500;">السائقين</a>
-        <a href="#" style="text-decoration: none; color: #2c3e50; font-weight: 500;">تواصل معنا</a>
+        <a href="{% url 'guide_list' %}" style="text-decoration: none; color: #2c3e50; font-weight: 500;">
+            المرشدين
+        </a>
+
+        <a href="{% url 'driver_list' %}" style="text-decoration: none; color: #2c3e50; font-weight: 500;">
+            السائقين
+        </a>
+
+        <a href="{% url 'contact' %}" style="text-decoration: none; color: #2c3e50; font-weight: 500;">
+            تواصل معنا
+        </a>
     </div>
 </nav>
 
