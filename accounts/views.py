@@ -5,7 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.views.decorators.http import require_http_methods
 from .forms import CustomUserCreationForm
 from .models import User
-
+from django.views.decorators.http import require_http_methods
+from django.shortcuts import render
 
 @require_http_methods(["GET", "POST"])
 def login_view(request):
@@ -59,6 +60,16 @@ def logout_view(request):
     messages.info(request, "تم تسجيل الخروج بنجاح.")
     return redirect("login")
 
+@require_http_methods(["GET", "POST"])
+def contact_view(request):
+    if request.method == "POST":
+        # هنا ممكن نضيف منطق إرسال بريد أو حفظ بيانات التواصل
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+        # يمكن تخزينها لاحقًا أو إرسالها
+
+    return render(request, "accounts/contact.html")
 
 # ✅ عرض قائمة المرشدين مع فلتر المدينة
 def guide_list(request):
