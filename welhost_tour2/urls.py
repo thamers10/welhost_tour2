@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from accounts import views
+
 
 # استيراد العرض الرئيسي من تطبيق الخدمات
 from services import views as service_views
@@ -18,6 +20,9 @@ urlpatterns = [
 
     # API للحجوزات
     path('api/bookings/', include('bookings.urls')),
+
+    path('contact/', views.contact_view, name='contact'),
+
 
     # API للخدمات
     path('api/services/', include('services.urls')),
