@@ -6,7 +6,7 @@ from .models import ServiceProfile, ServiceItem, Review
 class ServiceItemInline(admin.TabularInline):
     model = ServiceItem
     extra = 1
-    fields = ('name', 'price', 'preview_image', 'cloudinary_url')
+    fields = ('name', 'price', 'image', 'preview_image', 'cloudinary_url')
     readonly_fields = ('preview_image', 'cloudinary_url')
     show_change_link = True
 
@@ -35,6 +35,7 @@ class ServiceItemAdmin(admin.ModelAdmin):
     search_fields = ('name', 'profile__user__username')
     list_filter = ('price',)
     readonly_fields = ('preview_image', 'cloudinary_url')
+    fields = ('name', 'price', 'image', 'preview_image', 'cloudinary_url')
 
     def preview_image(self, obj):
         if obj.cloudinary_url:
